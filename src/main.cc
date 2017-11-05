@@ -32,7 +32,8 @@ sequence<std::pair<int, int>> fib(int N) {
       b = c;
 
       // yield can also be called with constructor arguments
-      // of yielded type
+      // of yielded type:
+      //   std::pair<int, int>(i, c)
       yield(i, c);
     }
   };
@@ -43,10 +44,10 @@ sequence<std::pair<int, int>> fib(int N) {
 **/
 sequence<int> vector2sequence(const std::vector<int> &vec) {
   return [=] (yield_t<int> yield) {
-    // yield* can be used to yield elements of any iterable
+    // yield.all can be used to yield elements of any iterable
     // of a type convertible to the sequence type
     // (including other sequences)
-    yield*(vec);
+    yield.all(vec);
   };
 }
 
@@ -72,11 +73,11 @@ int main() {
 
 
   // or use .begin() and .end() manually
-  auto seq = range(5, 10);
+  auto seq = vector2sequence(std::vector<int>{ 1, 2, 4, 7 });
   for(auto it = seq.begin(); it != seq.end(); ++it)
     std::cout << *it << " ";
   std::cout << std::endl;
-  // output: 5 6 7 8 9
+  // output: 1 2 4 7
 
 
   // use void sequences

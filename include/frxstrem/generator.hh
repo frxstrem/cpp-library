@@ -42,7 +42,7 @@ public:
   void operator ()(value_t &&value);
 
   template <typename Iterable>
-  void operator *(Iterable &&x) {
+  void all(Iterable &&x) {
     for(T value : x)
       this->operator()(value);
   }
