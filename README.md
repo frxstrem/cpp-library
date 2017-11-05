@@ -10,6 +10,8 @@ Requires **C++11** and **Boost 1.64.0 with `Boost.Context`**.
 
 ### Generators
 
+**Note:** Be aware that generator arguments should be passed to the inner lambda by value, and *not* by reference (i.e. `[=]` instead of `[&]`), as the lambda function will be run *after* the outer function has returned.
+
 ```c++
 #include <frxstrem/generator.hh>
 using namespace frxstrem::generator;
